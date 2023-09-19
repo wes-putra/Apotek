@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
  
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\Obat;
+use App\Models\User; 
   
 class HomeController extends Controller
 {
@@ -25,7 +27,8 @@ class HomeController extends Controller
     
      public function admin(): View
     {
-        return view('admin.adminhome');
+        $obats = Obat::all();
+        return view('admin.adminhome', compact('obats'));
     } 
   
     /**
@@ -35,7 +38,10 @@ class HomeController extends Controller
      */
     public function super(): View
     {
-        return view('super.superhome');
+        $totalUsers = User::count();
+        $totalObats = Obat::count();
+
+        return view('super.dashboard', compact('totalUsers', 'totalObats'));
     }
   
 }

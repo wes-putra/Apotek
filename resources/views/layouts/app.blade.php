@@ -122,21 +122,29 @@
                         <ul class="nav flex-column">
                         @if(Auth::user()->Super())
                             <li class="nav-item">
-                                <a class="nav-link active" href="#">
+                                <a class="nav-link active" href="{{ route('super.dashboard') }}">
                                     Dashboard
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{route('user.index')}}">
                                     User
                                 </a>
                             </li>
-                        @endif
                             <li class="nav-item">
-                                <a class="nav-link" href="#">
+                                <a class="nav-link" href="{{route('superobat.index')}}">
                                     Daftar Obat
                                 </a>
                             </li>
+                        @endif
+                        @if(Auth::user()->Admin())
+                        <!-- link daftar obat untuk admin -->
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('adminobat.index') }}">
+                                    Daftar Obat
+                                </a>
+                            </li>
+                        @endif
                         </ul>
                     </div>
                 </nav>
