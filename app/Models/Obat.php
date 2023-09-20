@@ -10,10 +10,11 @@ class Obat extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama', // Tambahkan 'nama' ke dalam daftar ini
+        'nama', 
+        'gambar',
         'deskripsi',
         'harga',
-        // Kolom-kolom lain yang dapat diisi secara massal
+        'jumlah_obat',
     ];
     
 }

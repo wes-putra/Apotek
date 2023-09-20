@@ -45,13 +45,11 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function Super()
-    {
+    public function Super(){
     return $this->usertype == 'Super Admin'; // Sesuaikan dengan cara Anda mengidentifikasi admin
     }
 
-    public function Admin()
-    {
+    public function Admin(){
     return $this->usertype == 'Admin'; // Sesuaikan dengan cara Anda mengidentifikasi admin
     }
 }

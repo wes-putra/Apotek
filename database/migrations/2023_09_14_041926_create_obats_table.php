@@ -14,8 +14,10 @@ return new class extends Migration
     Schema::create('obats', function (Blueprint $table) {
         $table->id();
         $table->string('nama');
-        $table->Integer('harga');
+        $table->string('gambar')->nullable();
         $table->text('deskripsi')->nullable();
+        $table->Integer('harga');
+        $table->Integer('jumlah_obat');
         $table->timestamps();
     });
 }

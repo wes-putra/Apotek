@@ -31,12 +31,23 @@ class ObatController extends Controller
             'nama' => 'required',
             'deskripsi' => 'nullable',
             'harga' => 'required|numeric',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
         ]);
+
+        if ($request->hasFile('gambar')) {
+            $gambar = $request->file('gambar');
+            $namaGambar = time() . '.' . $gambar->getClientOriginalExtension();
+            $gambar->move(public_path('uploads'), $namaGambar); // Simpan gambar di direktori publik
+        } else {
+            $namaGambar = null; // Jika tidak ada gambar yang diunggah
+        }
 
         Obat::create([
             'nama' => $request->input('nama'),
             'deskripsi' => $request->input('deskripsi'),
             'harga' => $request->input('harga'),
+            'gambar' => $namaGambar,
+            'jumlah_obat'=>$request->input('jumlah'),
         ]);
 
         if(Auth::user()->Super()){

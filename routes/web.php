@@ -10,7 +10,7 @@ Route::get('/', function () {
         if (Auth::user()->Admin()) {
             return redirect()->route('obat.index');
         } elseif (Auth::user()->Super()) {
-            return redirect()->route('super.home');
+            return redirect()->route('super.dashboard');
         }
     }
     return redirect()->route('login');

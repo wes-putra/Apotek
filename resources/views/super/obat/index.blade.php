@@ -13,19 +13,29 @@
             <tr class="text-center">
                 <th>No</th>
                 <th>Nama</th>
+                <th>Gambar</th>
                 <th>Deskripsi</th>
                 <th>Harga</th>
+                <th>Jumlah Obat</th>
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach($obats as $obat)
-            <tr>
+            <tr class="align-middle">
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td>{{ $obat->nama }}</td>
+                <td class="text-center">
+                    @if($obat->gambar)
+                    <img src="{{ asset('uploads/' . $obat->gambar) }}" alt="{{ $obat->nama }}" width="75">
+                    @else
+                    No Image
+                    @endif
+                </td>
                 <td>{{ $obat->deskripsi }}</td>
                 <td>{{ $obat->harga }}</td>
-                <td>
+                <td class="text-center">{{ $obat->jumlah_obat}}</td>
+                <td class="text-center">
                     <a href="{{ route('superobat.edit', ['obat' => $obat->id]) }}" class="btn btn-primary">Edit</a>
                     <form action="{{ route('superobat.destroy', ['obat' => $obat->id]) }}" method="POST" style="display: inline;">
                         @csrf
