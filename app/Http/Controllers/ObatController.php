@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Obat;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class ObatController extends Controller
 {
@@ -31,7 +32,7 @@ class ObatController extends Controller
             'nama' => 'required',
             'deskripsi' => 'nullable',
             'harga' => 'required|numeric',
-            'gambar' => 'image|mimes:jpeg,png,jpg,gif|max:2048|nullable',
+            'gambar' => 'image|mimes:jpeg,png,jpg,gif,webp|max:2048|nullable',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -44,6 +45,7 @@ class ObatController extends Controller
 
         Obat::create([
             'nama' => $request->input('nama'),
+            'kategori' => $request->input('kategori'),
             'deskripsi' => $request->input('deskripsi'),
             'harga' => $request->input('harga'),
             'gambar' => $namaGambar,
@@ -81,6 +83,13 @@ class ObatController extends Controller
 
     public function destroy(Obat $obat)
     {
+        if ($obat->gambar) {
+            $gambarPath = public_path('uploads/' . $obat->gambar);
+    
+            if (File::exists($gambarPath)) {
+                File::delete($gambarPath);
+            }
+        }
         // Hapus obat dari database
         $obat->delete();
 

@@ -13,6 +13,7 @@
             <tr class="text-center">
                 <th>No</th>
                 <th>Nama</th>
+                <th>Kategori</th>
                 <th>Gambar</th>
                 <th>Deskripsi</th>
                 <th>Harga</th>
@@ -24,6 +25,7 @@
             <tr class="align-middle">
                 <td class="text-center">{{ $loop->iteration }}</td>
                 <td>{{ $obat->nama }}</td>
+                <td>{{ $obat->kategori }}</td>
                 <td class="text-center">
                     @if($obat->gambar)
                     <img src="{{ asset('uploads/' . $obat->gambar) }}" alt="{{ $obat->nama }}" width="75">

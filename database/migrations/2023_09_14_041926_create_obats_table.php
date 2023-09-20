@@ -14,6 +14,7 @@ return new class extends Migration
     Schema::create('obats', function (Blueprint $table) {
         $table->id();
         $table->string('nama');
+        $table->string('kategori');
         $table->string('gambar')->nullable();
         $table->text('deskripsi')->nullable();
         $table->Integer('harga');

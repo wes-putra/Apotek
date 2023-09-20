@@ -15,6 +15,17 @@
         </div>
 
         <div class="form-group">
+            <label for="kategori">Kategori Obat</label>
+            <select class="form-select" id="kategori" name="kategori" aria-label="Default select example" required>
+                <option selected>Pilihan</option>
+                <option value="Kapsul">Kapsul</option>
+                <option value="Larutan">Larutan</option>
+                <option value="Bubuk">Bubuk</option>
+                <!-- Tambahkan tipe pengguna lainnya jika diperlukan -->
+            </select>
+        </div>
+
+        <div class="form-group">
             <label for="deskripsi">Deskripsi Obat</label>
             <textarea class="form-control" id="deskripsi" name="deskripsi"></textarea>
         </div>

@@ -58,3 +58,22 @@ Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Super Admin']
     Route::put('/update/{user}', [UserController::class, 'update'])->name('user.update'); 
     Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
+
+// Penjualan
+Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Super Admin'])->group(function () {
+    Route::get('/', [UserController::class, 'indexSuper'])->name('user.index');
+    Route::get('/add', [UserController::class, 'create'])->name('user.create');
+    Route::post('/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/update/{user}', [UserController::class, 'update'])->name('user.update'); 
+    Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+});
+
+Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Admin'])->group(function () {
+    Route::get('/', [UserController::class, 'indexSuper'])->name('user.index');
+    Route::get('/add', [UserController::class, 'create'])->name('user.create');
+    Route::post('/store', [UserController::class, 'store'])->name('user.store');
+    Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/update/{user}', [UserController::class, 'update'])->name('user.update'); 
+    Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+});
