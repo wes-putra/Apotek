@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ObatController;
+use App\Http\Controllers\PenjualanController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -24,11 +25,6 @@ Route::get('logout', function () {
 })->name('logout');
 
 Auth::routes();
-
-// // auth admin
-// Route::middleware(['auth', 'user-access:Admin'])->group(function () {
-//     Route::get('/Admin/Obat', [HomeController::class, 'admin'])->name('admin.home');
-// });
 
 // superuser dashboard
 Route::middleware(['auth', 'user-access:Super Admin'])->group(function () { 
@@ -60,20 +56,13 @@ Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Super Admin']
 });
 
 // Penjualan
-Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Super Admin'])->group(function () {
-    Route::get('/', [UserController::class, 'indexSuper'])->name('user.index');
-    Route::get('/add', [UserController::class, 'create'])->name('user.create');
-    Route::post('/store', [UserController::class, 'store'])->name('user.store');
-    Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('/update/{user}', [UserController::class, 'update'])->name('user.update'); 
-    Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
+Route::prefix('Penjualan')->group(function () {
+    Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/add', [PenjualanController::class, 'create'])->name('penjualan.create');
+    Route::get('/show/{penjualan}', [PenjualanController::class, 'show'])->name('penjualan.show');
+    Route::post('/store', [PenjualanController::class, 'store'])->name('penjualan.store');
+    Route::get('/edit/{penjualan}', [PenjualanController::class, 'edit'])->name('penjualan.edit');
+    Route::put('/update/{penjualan}', [PenjualanController::class, 'update'])->name('penjualan.update'); 
+    Route::delete('/destroy/{penjualan}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
 });
 
-Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Admin'])->group(function () {
-    Route::get('/', [UserController::class, 'indexSuper'])->name('user.index');
-    Route::get('/add', [UserController::class, 'create'])->name('user.create');
-    Route::post('/store', [UserController::class, 'store'])->name('user.store');
-    Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
-    Route::put('/update/{user}', [UserController::class, 'update'])->name('user.update'); 
-    Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
-});

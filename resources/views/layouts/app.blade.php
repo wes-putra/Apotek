@@ -136,12 +136,22 @@
                                     Daftar Obat
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('penjualan.index')}}">
+                                Penjualan
+                                </a>
+                            </li>
                         @endif
                         @if(Auth::user()->Admin())
                         <!-- link daftar obat untuk admin -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('adminobat.index') }}">
                                     Daftar Obat
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('penjualan.index')}}">
+                                Penjualan
                                 </a>
                             </li>
                         @endif
