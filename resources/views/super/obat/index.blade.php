@@ -1,6 +1,11 @@
 @extends('layouts.app')
   
 @section('content')
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
 <div class="container">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h2 class="m-0">Daftar Obat</h2>
@@ -8,7 +13,7 @@
     </div>
     
     <!-- Tabel untuk menampilkan data -->
-    <table class="table table-bordered">
+    <table id="table_id" class="table pt-3">
         <thead>
             <tr class="text-center">
                 <th>No</th>
@@ -50,4 +55,9 @@
         </tbody>
     </table>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#table_id').DataTable();
+    });
+</script>
 @endsection

@@ -1,0 +1,26 @@
+Tabel "Obat":
+ID_Obat (Primary Key)
+Nama_Obat
+Harga
+Stok
+Deskripsi
+...
+
+Tabel "Transaksi":
+ID_Transaksi (Primary Key)
+Tanggal_Transaksi
+Total_Harga
+
+Tabel "Detail_Transaksi":
+ID_Detail_Transaksi (Primary Key)
+ID_Transaksi (Foreign Key ke tabel Transaksi)
+ID_Obat (Foreign Key ke tabel Obat)
+Jumlah
+Subtotal
+
+Tabel "Laporan_Penjualan":
+ID_Laporan (Primary Key)
+Tanggal_Laporan
+Total_Penjualan
+Laba_Kotor
+

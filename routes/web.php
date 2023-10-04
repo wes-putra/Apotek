@@ -4,12 +4,13 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ObatController;
-use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\LaporanPenjualanController;
+use App\Http\Controllers\TransaksiController;
 
 Route::get('/', function () {
     if (Auth::check()) {
         if (Auth::user()->Admin()) {
-            return redirect()->route('obat.index');
+            return redirect()->route('adminobat.index');
         } elseif (Auth::user()->Super()) {
             return redirect()->route('super.dashboard');
         }
@@ -55,14 +56,23 @@ Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Super Admin']
     Route::delete('/destroy/{user}', [UserController::class, 'destroy'])->name('user.destroy');
 });
 
+// Transaksi
+Route::prefix('Transaksi')->group(function () {
+    Route::get('/', [TransaksiController::class, 'index'])->name('transaksi.index');
+    Route::get('/add', [TransaksiController::class, 'create'])->name('transaksi.create');
+    Route::post('/store', [TransaksiController::class, 'store'])->name('transaksi.store');
+    Route::get('/show/{id}', [TransaksiController::class, 'show'])->name('transaksi.show');
+    Route::put('/update/{penjualan}', [TransaksiController::class, 'update'])->name('transaksi.update'); 
+    Route::delete('/destroy/{penjualan}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+});
+
 // Penjualan
 Route::prefix('Penjualan')->group(function () {
-    Route::get('/', [PenjualanController::class, 'index'])->name('penjualan.index');
-    Route::get('/add', [PenjualanController::class, 'create'])->name('penjualan.create');
-    Route::get('/show/{penjualan}', [PenjualanController::class, 'show'])->name('penjualan.show');
-    Route::post('/store', [PenjualanController::class, 'store'])->name('penjualan.store');
-    Route::get('/edit/{penjualan}', [PenjualanController::class, 'edit'])->name('penjualan.edit');
-    Route::put('/update/{penjualan}', [PenjualanController::class, 'update'])->name('penjualan.update'); 
-    Route::delete('/destroy/{penjualan}', [PenjualanController::class, 'destroy'])->name('penjualan.destroy');
+    Route::get('/', [LaporanPenjualanController::class, 'index'])->name('penjualan.index');
+    Route::get('/add', [LaporanPenjualanController::class, 'create'])->name('penjualan.create');
+    Route::post('/store', [LaporanPenjualanController::class, 'store'])->name('penjualan.store');
+    Route::get('/edit/{penjualan}', [LaporanPenjualanController::class, 'edit'])->name('penjualan.edit');
+    Route::put('/update/{penjualan}', [LaporanPenjualanController::class, 'update'])->name('penjualan.update'); 
+    Route::delete('/destroy/{penjualan}', [LaporanPenjualanController::class, 'destroy'])->name('penjualan.destroy');
 });
 

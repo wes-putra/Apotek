@@ -9,8 +9,9 @@ class LaporanPenjualanController extends Controller
 {
     public function index()
     {
-        // Logika untuk menampilkan daftar laporan penjualan
-    }
+        $laporanPenjualans = LaporanPenjualan::All();
+        return view('penjualan.index' ,compact('laporanPenjualans'));;
+        }
 
     public function create()
     {
