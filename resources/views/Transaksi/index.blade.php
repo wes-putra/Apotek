@@ -12,6 +12,7 @@
         <thead>
             <tr class="text-center">
                 <th>No</th>
+                <th>Kode Transaksi</th>
                 <th>Nama Pembeli</th>
                 <th>Tanggal Transaksi</th>
                 <th>Total Harga</th>
@@ -22,12 +23,13 @@
             @foreach($transaksis as $transaksi)
             <tr class="text-center">
                 <td>{{ $loop->iteration }}</td>
+                <td>{{ $transaksi->Kode_Transaksi }}</td>
                 <td>{{ $transaksi->Nama_Pembeli }}</td>
                 <td>{{ $transaksi->Tanggal_Transaksi }}</td>
                 <td>{{ $transaksi->Total_Harga }}</td>
                 <td>
                     <a href="{{ route('transaksi.show', ['id' => $transaksi->ID_Transaksi]) }}" class="btn btn-info btn-sm">Show</a>
-                    <form action="{{ route('transaksi.destroy', $transaksi->ID_Transaksi) }}" method="POST" style="display: inline;">
+                    <form action="{{ route('transaksi.destroy', ['id' => $transaksi->ID_Transaksi]) }}" method="POST" style="display: inline;">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda yakin ingin menghapus transaksi ini?')">Delete</button>

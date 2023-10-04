@@ -14,6 +14,7 @@ class CreateTransaksisTable extends Migration
     {
         Schema::create('transaksis', function (Blueprint $table) {
             $table->id('ID_Transaksi'); // Primary Key
+            $table->string('Kode_Transaksi');
             $table->string('Nama_Pembeli');
             $table->date('Tanggal_Transaksi');
             $table->decimal('Total_Harga', 10, 2); // Decimal with 2 decimal places

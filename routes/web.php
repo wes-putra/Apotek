@@ -62,8 +62,7 @@ Route::prefix('Transaksi')->group(function () {
     Route::get('/add', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::post('/store', [TransaksiController::class, 'store'])->name('transaksi.store');
     Route::get('/show/{id}', [TransaksiController::class, 'show'])->name('transaksi.show');
-    Route::put('/update/{penjualan}', [TransaksiController::class, 'update'])->name('transaksi.update'); 
-    Route::delete('/destroy/{penjualan}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
+    Route::delete('/destroy/{id}', [TransaksiController::class, 'destroy'])->name('transaksi.destroy');
 });
 
 // Penjualan

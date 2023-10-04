@@ -14,6 +14,7 @@ class Transaksi extends Model
     protected $primaryKey = 'ID_Transaksi'; // Kolom primary key
 
     protected $fillable = [
+        'Kode_Transaksi',
         'Nama_Pembeli',
         'Tanggal_Transaksi',
         'Total_Harga',

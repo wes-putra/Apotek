@@ -28,10 +28,15 @@ class TransaksiController extends Controller
         $totalHarga = $request->input('totalHarga');
         $transaksi = $request->input('transaksi');
 
-        // mngelola data dan menyimpannya ke dalam database sesuai dengan struktur tabel yang ada.
+        $timestamp = time(); // Waktu saat ini dalam detik
+        $randomValue = mt_rand(1000, 9999); // Nilai acak antara 1000 dan 9999
 
-        // Contoh: Simpan totalHarga dan transaksi ke dalam tabel Transaksi
+        // Gabungkan elemen-elemen tersebut untuk membuat kode transaksi
+        $kodeTransaksi = 'TRX' . date('YmdHis', $timestamp) . $randomValue;
+
+        // mngelola data dan menyimpannya ke dalam database sesuai dengan struktur tabel yang ada.
         $transaksiModel = new Transaksi();
+        $transaksiModel->Kode_Transaksi = $kodeTransaksi;
         $transaksiModel->Nama_Pembeli = $namaPembeli;
         $transaksiModel->total_harga = $totalHarga;
         $transaksiModel->Tanggal_Transaksi = now();
@@ -73,6 +78,6 @@ class TransaksiController extends Controller
 
     public function destroy(Transaksi $transaksi)
     {
-        // Logika untuk menghapus transaksi
-    }
+        
+    }    
 }
