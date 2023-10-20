@@ -18,12 +18,12 @@ class Transaksi extends Model
         'Nama_Pembeli',
         'Tanggal_Transaksi',
         'Total_Harga',
+        'created_by',
     ];
 
-    // Relasi jika diperlukan
-    // Contoh: Setiap transaksi dapat memiliki banyak detail transaksi
     public function detailTransaksi()
     {
         return $this->hasMany(DetailTransaksi::class, 'ID_Transaksi', 'ID_Transaksi');
     }
+
 }

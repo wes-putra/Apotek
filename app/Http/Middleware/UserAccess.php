@@ -1,27 +1,24 @@
 <?php
-  
+
 namespace App\Http\Middleware;
-  
+
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-  
+use Illuminate\Http\Response;
+
 class UserAccess
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
-     * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
-     */
-    public function handle(Request $request, Closure $next, $userType): Response
+    public function handle(Request $request, Closure $next, ...$allowedUserTypes)
     {
-        if(auth()->user()->usertype == $userType){
+        $user = $request->user();
+
+        // Memeriksa apakah tipe pengguna saat ini termasuk dalam daftar yang diizinkan
+        if (in_array($user->usertype, $allowedUserTypes)) {
             return $next($request);
         }
-          
-        return response()->json(['You do not have permission to access for this page.']);
-        /* return response()->view('errors.check-permission'); */
+
+        // Jika pengguna tidak memiliki tipe yang diizinkan, berikan respons sesuai
+        return response()->json(['error' => 'You do not have permission to access this page.'], 403);
+        // Atau, Anda dapat mengarahkan pengguna ke halaman lain atau menampilkan halaman kesalahan, seperti yang Anda inginkan.
     }
 }

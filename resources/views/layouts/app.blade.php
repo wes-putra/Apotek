@@ -74,9 +74,6 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Apotek') }}
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -150,7 +147,6 @@
                             </li>
                         @endif
                         @if(Auth::user()->Admin())
-                        <!-- link daftar obat untuk admin -->
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('adminobat.index') }}">
                                     Daftar Obat
@@ -182,5 +178,19 @@
         @yield('content')
     @endguest
     </div>
+    <script>
+    // Fungsi untuk menyembunyikan pesan alert
+    function hideAlert() {
+        var alert = document.querySelector('.alert');
+        if (alert) {
+            setTimeout(function() {
+                alert.style.display = 'none';
+            }, 2000); // 3000 milidetik (3 detik)
+        }
+    }
+
+    // Panggil fungsi hideAlert saat dokumen selesai dimuat
+    document.addEventListener('DOMContentLoaded', hideAlert);
+</script>
 </body>
 </html>

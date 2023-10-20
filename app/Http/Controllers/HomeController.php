@@ -24,13 +24,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    
-    public function admin(): View
-    {
-        $obats = Obat::all();
-        return view('admin.adminhome', compact('obats'));
-    } 
-  
+      
     /**
      * Show the application dashboard.
      *

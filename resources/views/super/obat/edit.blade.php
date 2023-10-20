@@ -15,18 +15,13 @@
         </div>
 
         <div class="form-group">
-            <label for="usertype">Kategori Obat</label>
-            <select class="form-control" id="kategori" name="kategori" required>
-                <option value="Kapsul" {{ $obat->kategori == 'Kapsul' ? 'selected' : '' }}>Kapsul</option>
-                <option value="Larutan" {{ $obat->kategori == 'Larutan' ? 'selected' : '' }}>Larutan</option>
-                <option value="Bubuk" {{ $obat->kategori == 'Bubuk' ? 'selected' : '' }}>Bubuk</option>
-                <!-- Tambahkan tipe pengguna lainnya jika diperlukan -->
-            </select>
+            <label for="harga">Harga Obat</label>
+            <input type="number" class="form-control" id="harga" name="harga" value="{{ $obat->harga }}" required>
         </div>
 
         <div class="form-group">
-            <label for="harga">Harga Obat</label>
-            <input type="number" class="form-control" id="harga" name="harga" value="{{ $obat->harga }}" required>
+            <label for="jumlah_obat">Jumlah Stok Obat</label>
+            <input type="number" class="form-control" id="jumlah_obat" name="jumlah_obat" value="{{ $obat->jumlah_obat }}" required>
         </div>
 
         <div class="text-center mt-3">

@@ -24,3 +24,8 @@ Tanggal_Laporan
 Total_Penjualan
 Laba_Kotor
 
+tugas:
+- filter laporan penjualan untuk harian dan bulan
+- role pembeli, yang nantinya bisa ceckout obat dan menambah kedalam keranjang
+- pada transaksi, kuantitas obat dan subtotal bertambah ketika ada obat yang sudah ditambahkan ingin ditambah lagi  
+

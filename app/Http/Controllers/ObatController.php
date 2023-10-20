@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Obat;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
@@ -21,6 +22,7 @@ class ObatController extends Controller
         $obats = Obat::all();
         return view('super.obat.index', compact('obats'));
     }
+    
     public function create()
     {
         return view('obat.create');
@@ -50,6 +52,7 @@ class ObatController extends Controller
             'harga' => $request->input('harga'),
             'gambar' => $namaGambar,
             'jumlah_obat'=>$request->input('jumlah'),
+
         ]);
 
         if(Auth::user()->Super()){
@@ -69,8 +72,7 @@ class ObatController extends Controller
     {
         // Validasi input
         $request->validate([
-            'nama' => 'required',
-            'harga' => 'required|numeric',
+            'jumlah_obat' => 'required',
             'deskripsi' => 'nullable',
         ]);
 

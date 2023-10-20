@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ObatController;
 use App\Http\Controllers\LaporanPenjualanController;
 use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\CustomerController;
 
 Route::get('/', function () {
     if (Auth::check()) {
@@ -15,7 +16,7 @@ Route::get('/', function () {
             return redirect()->route('super.dashboard');
         }
     }
-    return redirect()->route('login');
+    return redirect()->route('guest.index');
 });
 
 Route::get('logout', function () {
@@ -26,6 +27,11 @@ Route::get('logout', function () {
 })->name('logout');
 
 Auth::routes();
+
+Route::prefix('/')->group(function () {
+    Route::get('', [CustomerController::class, 'index'])->name('guest.index');
+    Route::post('store', [CustomerController::class, 'store'])->name('guest.store')->middleware('web');
+});
 
 // superuser dashboard
 Route::middleware(['auth', 'user-access:Super Admin'])->group(function () { 
@@ -57,7 +63,7 @@ Route::prefix('SuperAdmin/User')->middleware(['auth', 'user-access:Super Admin']
 });
 
 // Transaksi
-Route::prefix('Transaksi')->group(function () {
+Route::prefix('Transaksi')->middleware(['auth', 'user-access:Super Admin,Admin'])->group(function () {
     Route::get('/', [TransaksiController::class, 'index'])->name('transaksi.index');
     Route::get('/add', [TransaksiController::class, 'create'])->name('transaksi.create');
     Route::post('/store', [TransaksiController::class, 'store'])->name('transaksi.store');

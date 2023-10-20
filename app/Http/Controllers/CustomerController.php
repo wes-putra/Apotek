@@ -1,32 +1,27 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers;                                           
 
 use Illuminate\Http\Request;
 use App\Models\Obat;
 use App\Models\Transaksi;
 use App\Models\DetailTransaksi;
 
-class TransaksiController extends Controller
+class CustomerController extends Controller
 {
     public function index()
     {
-        $transaksis = Transaksi::all();
-        return view('transaksi.index', compact('transaksis'));
-    }
-
-    public function create()
-    {
         $obats = Obat::all();
-        return view('transaksi.create', compact('obats'));
+        return view('customer.index', compact('obats'));
     }
-    
+        
     public function store(Request $request)
     {
         // Mendapatkan data dari permintaan POST
-        $namaPembeli = $request->input('namaPembeli');
-        $totalHarga = $request->input('totalHarga');
-        $transaksi = $request->input('transaksi');
+        $namaPembeli = $request->input('Nama_Pembeli');
+        $totalHarga = $request->input('Total_Harga');
+        $transaksi = $request->input('Transaksi');
+        // dd($transaksi);
 
         $timestamp = time(); // Waktu saat ini dalam detik
         $randomValue = mt_rand(1000, 9999); // Nilai acak antara 1000 dan 9999
@@ -40,16 +35,10 @@ class TransaksiController extends Controller
         $transaksiModel->Nama_Pembeli = $namaPembeli;
         $transaksiModel->total_harga = $totalHarga;
         $transaksiModel->Tanggal_Transaksi = now();
-
-        $userType = auth()->user()->usertype;
-
-        // Mengisi kolom 'created_by' sesuai dengan peran pengguna
-        if ($userType === 'Admin' || $userType === 'Super Admin') {
-            $transaksiModel->created_by = $userType;
-        }
+                  
+        $transaksiModel->created_by = 'Pembeli';
         $transaksiModel->save();
 
-        // Kemudian, simpan setiap transaksi ke dalam tabel DetailTransaksi
         foreach ($transaksi as $item) {
             $detailTransaksi = new DetailTransaksi();
             $detailTransaksi->ID_Transaksi = $transaksiModel->ID_Transaksi;
@@ -68,31 +57,6 @@ class TransaksiController extends Controller
                 return response()->json(['error' => 'Obat tidak ditemukan'], 404);
             }
             $detailTransaksi->save();   
-        }
-    }
-
-    public function show($id)
-    {
-        $transaksi = Transaksi::find($id);
-        if (!$transaksi) {
-            return abort(404, 'Transaksi tidak ditemukan');
-        }
-
-        $detailTransaksis = $transaksi->detailTransaksi;
-        return view('transaksi.show', compact('transaksi', 'detailTransaksis'));
-    }
-
-
-    public function destroy($id)
-{
-        $transaksi = Transaksi::find($id);
-        $dataDetail = DetailTransaksi::where('ID_Transaksi', $transaksi->ID_Transaksi)->first();
-        if($dataDetail == null){
-            $transaksi->delete(); 
-        }else{
-            $dataDetail->delete();
-        }
-        $transaksi->delete(); 
-        return redirect()->route('transaksi.index')->with('success', 'Transaksi telah dihapus.');
+        }  
     }
 }

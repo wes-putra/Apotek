@@ -15,6 +15,7 @@
                 <th>Kode Transaksi</th>
                 <th>Nama Pembeli</th>
                 <th>Tanggal Transaksi</th>
+                <th>Transaksi Dibuat Oleh</th>
                 <th>Total Harga</th>
                 <th>Aksi</th>
             </tr>
@@ -26,6 +27,7 @@
                 <td>{{ $transaksi->Kode_Transaksi }}</td>
                 <td>{{ $transaksi->Nama_Pembeli }}</td>
                 <td>{{ $transaksi->Tanggal_Transaksi }}</td>
+                <td>{{ $transaksi->created_by }}</td>
                 <td>{{ $transaksi->Total_Harga }}</td>
                 <td>
                     <a href="{{ route('transaksi.show', ['id' => $transaksi->ID_Transaksi]) }}" class="btn btn-info btn-sm">Show</a>

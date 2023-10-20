@@ -74,6 +74,7 @@
 <script>
     const selectObat = document.getElementById('obat');
     const inputHarga = document.getElementById('harga');
+
     const transactionRecords = document.getElementById('transaction-records');
     let totalHarga = 0;
 
@@ -102,9 +103,16 @@
         const row = document.createElement('tr');
         row.innerHTML = `
         <td>${obatNama}</td>
-        <td>${obatHarga}</td>
-        <td>${obatJumlah}</td>
-        <td>${subtotal}</td>
+        <td class="harga">${obatHarga}</td>
+        <td>
+            <div class="input-group">
+                <button class="btn btn-primary btn-sm" onclick="tambahObat(this)">+</button>
+                <input class="kuantitas" value="${obatJumlah}">
+                <button class="btn btn-primary btn-sm" onclick="kurangObat(this)">-</button>
+            </div>
+        </td>
+
+        <td class="subtotal">${subtotal}</td>
         <td>
             <button class="btn btn-danger btn-sm" onclick="hapusObat(this)">Hapus</button>
         </td>
@@ -129,10 +137,65 @@
         row.remove();
     }
 
+    function tambahObat(button) {
+        const row = button.closest('tr');
+        const kuantitasInput = row.querySelector('.kuantitas'); // Mengambil input kuantitas
+        const subtotalElement = row.querySelector('.subtotal'); // Mengambil elemen subtotal
+        const harga = parseFloat(row.querySelector('.harga').textContent);
+        
+        let kuantitas = parseFloat(kuantitasInput.value);
+        kuantitas++;
+        kuantitasInput.value = kuantitas; // Mengubah nilai input
+        
+        const subtotal = kuantitas * harga;
+        subtotalElement.textContent = subtotal; // Memperbarui subtotal
+
+        totalHarga += harga;
+        document.getElementById('total-price').textContent = totalHarga;
+    }
+
+
+    function kurangObat(button) {
+        const row = button.closest('tr');
+        const kuantitasInput = row.querySelector('.kuantitas'); // Mengambil input kuantitas
+        const subtotalElement = row.querySelector('.subtotal'); // Mengambil elemen subtotal
+        
+        let kuantitas = parseInt(kuantitasInput.value);
+        if (kuantitas > 1) {
+            kuantitas--;
+            const harga = parseFloat(row.querySelector('.harga').textContent);
+            const subtotal = kuantitas * harga;
+
+            kuantitasInput.value = kuantitas; // Mengubah nilai input
+            subtotalElement.textContent = subtotal;
+
+            totalHarga -= harga;
+            document.getElementById('total-price').textContent = totalHarga;
+        }
+    }
+
     document.getElementById('simpanBtn').addEventListener('click', function (e) {
-        e.preventDefault();
-        tambahObatKeTabel();
+        const obatSelect = document.getElementById('obat');
+        const selectedOption = obatSelect.options[obatSelect.selectedIndex];
+        const obatNama = selectedOption.text;
+
+        let isObatExists = false; // Untuk melacak apakah obat dengan nama yang sama ada di daftar transaksi
+
+        document.querySelectorAll('#transaction-records tr').forEach(function (row) {
+            var namaObat = row.querySelector('td:first-child').textContent;
+            if (namaObat === obatNama) {
+                isObatExists = true;
+            }
+        });
+
+        if (isObatExists) {
+            alert('Obat dengan nama yang sama sudah ada dalam daftar transaksi.');
+            e.preventDefault();
+        } else {
+            tambahObatKeTabel();
+        }
     });
+
 
     document.getElementById('simpanTransaksiBtn').addEventListener('click', function () {
         var transaksi = [];
@@ -140,10 +203,11 @@
 
 
         document.querySelectorAll('#transaction-records tr').forEach(function (row) {
-            var obatId = row.querySelector('td:first-child').textContent; // Ganti dengan selektor yang sesuai
-            var harga = parseFloat(row.querySelector('td:nth-child(2)').textContent); // Ganti dengan selektor yang sesuai
-            var jumlah = parseInt(row.querySelector('td:nth-child(3)').textContent); // Ganti dengan selektor yang sesuai
-
+            var obatId = row.querySelector('td:first-child').textContent;
+            var harga = parseFloat(row.querySelector('td:nth-child(2)').textContent); 
+            var subtotal = parseInt(row.querySelector('td:nth-child(4)').textContent, 10);
+            var jumlah = subtotal/harga;
+            console.log(jumlah);
 
             transaksi.push({
                 nama: obatId,
