@@ -15,8 +15,9 @@ Route::get('/', function () {
         } elseif (Auth::user()->Super()) {
             return redirect()->route('super.dashboard');
         }
+    }else{
+        return redirect()->route('guest.index');
     }
-    return redirect()->route('guest.index');
 });
 
 Route::get('logout', function () {

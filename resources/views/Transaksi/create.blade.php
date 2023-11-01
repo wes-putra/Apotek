@@ -32,7 +32,7 @@
             </div>
             <input type="hidden" id="selected-product-id">
             <div class="col-md-12 text-end">
-                <button class="btn btn-success btn-sm text-white rounded" id="simpanBtn"><i class="fa fa-save"></i> Simpan</button>
+                <button class="btn btn-success btn-sm text-white rounded" id="simpanBtn"><i class="fa fa-save"></i>Simpan</button>
             </div>
         </div>
         <hr>
